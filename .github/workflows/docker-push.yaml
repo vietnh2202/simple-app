@@ -27,14 +27,6 @@ jobs:
       #   if: github.event_name != 'pull_request'
       #   uses: sigstore/cosign-installer@v3
 
-      - name: Generate build ID
-        id: prep
-        run: |
-          branch="${GITHUB_REF##*/}"
-          timestamp=$(date +%Y%m%d-%H%M)
-          reverse_commit_hash=$(git rev-parse --short HEAD)
-          echo "BUILD_ID=${branch}-${timestamp}-${reverse_commit_hash}" >> $GITHUB_OUTPUT
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
@@ -58,6 +50,14 @@ jobs:
       #   uses: docker/metadata-action@v5
       #   with:
       #     images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Generate build ID
+        id: prep
+        run: |
+          branch="${GITHUB_REF##*/}"
+          timestamp=$(date +%Y%m%d-%H%M)
+          reverse_commit_hash=$(git rev-parse --short HEAD)
+          echo "BUILD_ID=${branch}-${timestamp}-${reverse_commit_hash}" >> $GITHUB_OUTPUT
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
