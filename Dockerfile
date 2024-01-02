@@ -2,13 +2,13 @@ FROM python:alpine3.19 as builder
 
 WORKDIR /app
 
-RUN pip install --upgrade pip==23.3
-
 COPY . .
 
 RUN pip install --user -r requirements.txt
 
 FROM python:alpine3.19
+
+RUN pip install --upgrade pip==23.3
 
 RUN adduser -D appuser
 USER appuser
