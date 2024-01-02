@@ -31,6 +31,7 @@ jobs:
       #   if: github.event_name != 'pull_request'
       #   uses: sigstore/cosign-installer@v3
 
+      # Install QEMU to allow Docker builds on many architectures
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
