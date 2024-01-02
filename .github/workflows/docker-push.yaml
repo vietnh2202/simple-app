@@ -30,10 +30,10 @@ jobs:
       - name: Generate build ID
         id: prep
         run: |
-          branch=${{ github.head_ref }}
-          timestamp=$(date +%Y%m%d.%H%M)
+          branch="${GITHUB_REF##*/}"
+          timestamp=$(date +%F.%H%M)
           reverse_commit_hash=$(git rev-parse --short HEAD)
-          echo '::set-output name=BUILD_ID::${branch}.${timestamp}.${reverse_commit_hash}'
+          echo "BUILD_ID=${branch}.${timestamp}.${reverse_commit_hash}" >> $GITHUB_OUTPUT
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
