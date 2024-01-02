@@ -33,7 +33,7 @@ jobs:
           branch=${{ github.head_ref }}
           timestamp=$(date +%Y%m%d.%H%M)
           reverse_commit_hash=$(git rev-parse --short HEAD)
-          echo '::set-output name=BUILD_ID::${branch}.${timestamp}.${reverse-commit-hash}'
+          echo '::set-output name=BUILD_ID::${branch}.${timestamp}.${reverse_commit_hash}'
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
