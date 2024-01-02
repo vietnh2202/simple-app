@@ -31,7 +31,7 @@ jobs:
         id: prep
         run: |
           branch="${GITHUB_REF##*/}"
-          timestamp=$(date +%F.%H%M)
+          timestamp=$(date +%Y%m%d-%H%M)
           reverse_commit_hash=$(git rev-parse --short HEAD)
           echo "BUILD_ID=${branch}-${timestamp}-${reverse_commit_hash}" >> $GITHUB_OUTPUT
 
@@ -65,7 +65,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ env.IMAGE_NAME }}:${{ steps.prep.outputs.BUILD_ID }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.prep.outputs.BUILD_ID }}
           file: ./Dockerfile
           platforms: linux/amd64, linux/arm64
           cache-from: type=gha
@@ -75,7 +75,7 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: |
-            ${{ env.IMAGE_NAME }}:${{ steps.prep.outputs.BUILD_ID }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.prep.outputs.BUILD_ID }}
           format: "table"
           exit-code: "1"
           ignore-unfixed: true
@@ -87,7 +87,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ env.IMAGE_NAME }}:${{ steps.prep.outputs.BUILD_ID }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.prep.outputs.BUILD_ID }}
           file: ./Dockerfile
           platforms: linux/amd64, linux/arm64
           cache-from: type=gha
