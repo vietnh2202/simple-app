@@ -65,9 +65,9 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          push: false
+          push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.prep.outputs.BUILD_TAG }}
+            ${{ env.IMAGE_NAME }}:${{ steps.prep.outputs.BUILD_TAG }}
           file: ${{ env.DOCKERFILE_PATH }}
           # platforms: linux/amd64, linux/arm64
           cache-from: type=gha
