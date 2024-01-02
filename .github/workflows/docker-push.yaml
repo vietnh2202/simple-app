@@ -77,7 +77,7 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: |
-            ${{ env.IMAGE_NAME }}:${{ steps.prep.outputs.BUILD_ID }}
+            ${{ env.IMAGE_NAME }}:${{ steps.prep.outputs.BUILD_TAG }}
           format: "table"
           exit-code: "1"
           ignore-unfixed: true
@@ -89,7 +89,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.prep.outputs.BUILD_ID }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.prep.outputs.BUILD_TAG }}
           file: ${{ env.DOCKERFILE_PATH }}
           # platforms: linux/amd64, linux/arm64
           cache-from: type=gha
