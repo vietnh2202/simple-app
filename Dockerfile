@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY . .
 
+RUN pip install --user --upgrade pip==23.3
+
 RUN pip install --user -r requirements.txt
 
 FROM python:alpine3.19
