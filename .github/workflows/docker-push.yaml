@@ -30,7 +30,7 @@ jobs:
       - name: Generate build ID
         id: prep
         run: |
-          branch="${{ github.ref_name }}"
+          branch="${GITHUB_REF##*/}"
           timestamp=$(date +%Y%m%d-%H%M)
           reverse_commit_hash=$(git rev-parse --short HEAD)
           echo "BUILD_ID=${branch}-${timestamp}-${reverse_commit_hash}" >> $GITHUB_OUTPUT
