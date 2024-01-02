@@ -4,8 +4,6 @@ WORKDIR /app
 
 COPY . .
 
-RUN pip install --upgrade pip==23.3
-
 RUN pip install --user -r requirements.txt
 
 FROM python:alpine3.19
@@ -19,6 +17,8 @@ COPY --chown=adduser:adduser --from=builder /root/.local /home/appuser/.local
 COPY --chown=adduser:adduser --from=builder /app /app
 
 ENV PATH=/home/appuser/.local/bin:$PATH
+
+RUN pip install --upgrade pip==23.3
 
 EXPOSE 5000
 
