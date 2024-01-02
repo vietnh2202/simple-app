@@ -61,7 +61,7 @@ jobs:
           reverse_commit_hash=$(git rev-parse --short HEAD)
           echo "BUILD_TAG=${branch}-${timestamp}-${reverse_commit_hash}" >> $GITHUB_OUTPUT
 
-      - name: Build and push Docker image
+      - name: Build Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
