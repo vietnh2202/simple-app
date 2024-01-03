@@ -4,13 +4,12 @@ WORKDIR /app
 
 COPY . .
 
-RUN pip install --user -r requirements.txt
-
 FROM python:alpine3.19
 
-RUN pip install --upgrade pip==23.3
-
-RUN adduser -D appuser
+RUN pip install --upgrade pip==23.3 && \
+    pip install --user -r requirements.txt && \
+    adduser -D appuser
+    
 USER appuser
 
 WORKDIR /app
