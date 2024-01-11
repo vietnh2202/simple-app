@@ -35,10 +35,7 @@ def hello_world():
     TEAM = os.getenv('TEAM')
     MY_SECRET = os.getenv('MY_SECRET')
 
-    return f"""<xmp>
-              Welcome to {NAME}
-              I will discuss with {TEAM} using my secret: {MY_SECRET}.
-              </xmp>"""
+    return f'Welcome to the {NAME}, {TEAM}! Here is your secret: {MY_SECRET}'
 
 if __name__ == '__main__':
     app.run()
