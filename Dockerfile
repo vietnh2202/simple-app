@@ -6,9 +6,10 @@ COPY . .
 
 RUN pip install --user -r requirements.txt
 
-FROM python:alpine3.19
+FROM python:alpine
 
-RUN pip install --upgrade pip==23.3 && \
+RUN apk update && apk upgrade libcrypto3==3.1.4-r3 && \
+    pip install --upgrade pip==23.3 && \
     adduser -D appuser
 
 USER appuser
