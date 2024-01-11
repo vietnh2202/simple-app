@@ -8,7 +8,7 @@ RUN pip install --user -r requirements.txt
 
 FROM python:alpine
 
-RUN apk update && apk upgrade libcrypto3==3.1.4-r3 && \
+RUN apk update && apk upgrade libcrypto3 && \
     pip install --upgrade pip==23.3 && \
     adduser -D appuser
 
