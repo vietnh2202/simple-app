@@ -1,4 +1,4 @@
-FROM python:alpine3.19 as builder
+FROM python:alpine as builder
 
 WORKDIR /app
 
@@ -8,7 +8,7 @@ RUN pip install --user -r requirements.txt
 
 FROM python:alpine
 
-RUN apk update && apk upgrade libcrypto3 && \
+RUN apk update && apk upgrade libcrypto3 libssl3  && \
     pip install --upgrade pip==23.3 && \
     adduser -D appuser
 
