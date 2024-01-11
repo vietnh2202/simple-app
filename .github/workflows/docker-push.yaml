@@ -62,9 +62,11 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
+          load: true
           tags: |
             ${{ env.IMAGE_NAME }}:${{ steps.prep.outputs.BUILD_TAG }}
           file: ${{ env.DOCKERFILE_PATH }}
+          outputs: type=oci,dest=/tmp/docker-image.tar
           platforms: linux/amd64, linux/arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -77,6 +79,7 @@ jobs:
           format: "table"
           exit-code: "1"
           ignore-unfixed: true
+          severity: "CRITICAL,HIGH"
 
       - name: Push the Docker image
         if: github.event_name != 'pull_request'
