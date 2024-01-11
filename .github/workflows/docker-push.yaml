@@ -62,7 +62,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          load: true
           tags: |
             ${{ env.IMAGE_NAME }}:${{ steps.prep.outputs.BUILD_TAG }}
           file: ${{ env.DOCKERFILE_PATH }}
