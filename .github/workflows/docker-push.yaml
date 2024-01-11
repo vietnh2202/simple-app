@@ -31,14 +31,10 @@ jobs:
       #   if: github.event_name != 'pull_request'
       #   uses: sigstore/cosign-installer@v3
 
-      # Install QEMU to allow Docker builds on many architectures
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-        # with:
-        #   platforms: linux/amd64, linux/arm64
+        with:
+          platforms: linux/amd64, linux/arm64
 
       - name: Log in to GitHub Container Registry
         if: github.event_name != 'pull_request'
@@ -70,7 +66,7 @@ jobs:
           tags: |
             ${{ env.IMAGE_NAME }}:${{ steps.prep.outputs.BUILD_TAG }}
           file: ${{ env.DOCKERFILE_PATH }}
-          # platforms: linux/amd64, linux/arm64
+          platforms: linux/amd64, linux/arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -92,7 +88,7 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.prep.outputs.BUILD_TAG }}
           file: ${{ env.DOCKERFILE_PATH }}
-          # platforms: linux/amd64, linux/arm64
+          platforms: linux/amd64, linux/arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
