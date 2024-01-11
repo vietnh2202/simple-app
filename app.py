@@ -1,5 +1,20 @@
 from flask import Flask
 from flask_healthz import HealthError, healthz
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+required_env_vars = [
+    'MY_SECRET',
+    'NAME',
+    'TEAM'
+]
+
+missing_vars = [var for var in required_env_vars if var not in os.getenv(var, '')]
+
+if missing_vars:
+    raise HealthError(f'Missing required environment variables: {', '.join(missing_vars)}')
 
 app = Flask(__name__)
 
@@ -16,7 +31,14 @@ app.add_url_rule('/healthz/readiness', 'readiness', view_func=lambda: readiness(
 
 @app.route('/')
 def hello_world():
-    return 'Hello DevOps Team!'
+    NAME = os.getenv('NAME')
+    TEAM = os.getenv('TEAM')
+    MY_SECRET = os.getenv('MY_SECRET')
+
+    return f"""<xmp>
+              Welcome to {NAME}
+              I will discuss with {TEAM} using my secret: {MY_SECRET}.
+              </xmp>"""
 
 if __name__ == '__main__':
     app.run()
